@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Flask Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to My Flask Website</h1>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a> |
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <p>This is a simple website built using Flask.</p>
+
+        <!-- Prefilled Form -->
+        <form action="{{ url_for('home') }}" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" value="harish.96" required>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+</body>
+
+</html>
