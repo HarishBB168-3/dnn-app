@@ -6,6 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notepad</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+
+        $("#btn").click(function () {
+
+            // Data to be sent in the POST request
+            const postData = {
+            notification: $("#notification").val()
+            };
+
+            $.ajax({
+                url: "https://api.tatapower-ddl.com/mmg2/shownotepaddata", // Replace with your endpoint
+                type: "POST",
+                contentType: "application/json",        // Set the content type
+                data: JSON.stringify(postData),         // Convert JS object to JSON string
+                
+                success: function (response) {
+                    // $("#result").text("Success: " + JSON.stringify(response));
+                    response = JSON.parse(response)
+                    response.forEach(function(item) {
+                        $("#myList").append("<li>" + JSON.stringify(item) + "</li>");
+                    });
+                },
+                error: function (xhr, status, error) {
+                    $("#result").text("Error: " + xhr.responseText);
+                }
+            });
+        });
+      });
+    </script>
+     <style>
+        body {
+          font-family: Arial, sans-serif;
+          padding: 20px;
+          background-color: #f4f4f4;
+        }
+        .container {
+          max-width: 80%;
+          margin: 0 auto;
+          background: #fff;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+          text-align: center;
+          color: #333;
+        }
+        ul {
+          list-style-type: none;
+          padding: 0;
+        }
+        li {
+          background: #e0e0e0;
+          margin: 10px 0;
+          padding: 12px;
+          border-radius: 5px;
+        }
+      </style>
 </head>
 
 <body>
@@ -27,7 +87,13 @@
             <br>
             <button type="submit">Submit</button>
         </form>
+        <div id="result"></div>
+        <button id="btn">Submit 2</button>
+        <ul id="myList"></ul>
+
     </main>
+ 
+
 </body>
 
 </html>
